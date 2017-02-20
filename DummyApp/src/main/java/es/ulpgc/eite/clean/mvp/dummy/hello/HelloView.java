@@ -24,16 +24,16 @@ public class HelloView
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_hello);
 
-    text = (TextView) findViewById(R.id.text);
+    text = (TextView) findViewById(R.id.helloMsg);
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    button = (Button) findViewById(R.id.button);
+    button = (Button) findViewById(R.id.sayHelloBtn);
     button.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        getPresenter().onButtonClicked();
+        getPresenter().onButtonHelloClicked();
       }
     });
   }

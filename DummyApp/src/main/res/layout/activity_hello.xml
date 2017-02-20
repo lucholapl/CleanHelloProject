@@ -24,12 +24,12 @@
 
     <include layout="@layout/content_hello"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_label"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/fab_margin"/>
+    <!--<Button-->
+        <!--android:id="@+id/button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/button_label"-->
+        <!--android:layout_gravity="bottom|right"-->
+        <!--android:layout_margin="@dimen/fab_margin"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

@@ -36,7 +36,10 @@ public interface Hello {
    * Methods offered to VIEW to communicate with PRESENTER
    */
   interface ViewToPresenter extends Presenter<PresenterToView> {
-    void onButtonClicked();
+
+
+
+    void onButtonHelloClicked();
   }
 
   /**
@@ -55,8 +58,12 @@ public interface Hello {
    * Methods offered to MODEL to communicate with PRESENTER
    */
   interface PresenterToModel extends Model<ModelToPresenter> {
-    void onChangeMsgByBtnClicked();
-    String getText();
+
+
+    void onChangeMsgByHelloBtnClicked();
+
+    String getHelloText();
+
     String getLabel();
   }
 

@@ -28,17 +28,18 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal">
             <Button
-                android:text="Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sayHelloBtn"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:text="Say Hello" />
             <Space
                 android:layout_width="12dp"
                 android:layout_height="wrap_content"/>
+
             <Button
-                android:text="Button"
+                android:text="Go To Bye"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/goToByeBtn"
@@ -57,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="14dp"/>
         <TextView
-            android:text="Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/helloMsg"

@@ -16,7 +16,7 @@ public class HelloPresenter extends GenericPresenter
 
 
   private boolean toolbarVisible;
-  private boolean buttonClicked;
+  private boolean buttonHelloClicked;
   private boolean textVisible;
 
   /**
@@ -56,8 +56,8 @@ public class HelloPresenter extends GenericPresenter
       checkToolbarVisibility();
       checkTextVisibility();
 
-      if (buttonClicked) {
-        getView().setText(getModel().getText());
+      if (buttonHelloClicked) {
+        getView().setText(getModel().getHelloText());
       }
     }
   }
@@ -90,13 +90,13 @@ public class HelloPresenter extends GenericPresenter
   // View To Presenter /////////////////////////////////////////////////////////////
 
   @Override
-  public void onButtonClicked() {
-    Log.d(TAG, "calling onButtonClicked()");
+  public void onButtonHelloClicked() {
+    Log.d(TAG, "calling onButtonHelloClicked()");
     if(isViewRunning()) {
-      getModel().onChangeMsgByBtnClicked();
-      getView().setText(getModel().getText());
+      getModel().onChangeMsgByHelloBtnClicked();
+      getView().setText(getModel().getHelloText());
       textVisible = true;
-      buttonClicked = true;
+      buttonHelloClicked = true;
     }
     checkTextVisibility();
   }

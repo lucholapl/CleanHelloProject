@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_hello"
+    android:id="@+id/content_bye"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="es.ulpgc.eite.clean.mvp.dummy.bye.ByeView"
-    tools:showIn="@layout/activity_hello">
+    tools:showIn="@layout/activity_bye">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -27,21 +27,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal">
+
             <Button
-                android:text="Button"
+                android:text="Say Bye"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/sayHelloBtn"
+                android:id="@+id/sayByeBtn"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_gravity="center_horizontal"/>
+
             <Space
                 android:layout_width="12dp"
                 android:layout_height="wrap_content"/>
             <Button
-                android:text="Button"
+                android:text="Back To Hello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/goToByeBtn"
+                android:id="@+id/goToHelloBtn"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
@@ -52,15 +54,14 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/progressHello"/>
+            android:id="@+id/progressBye"/>
         <Space
             android:layout_width="match_parent"
             android:layout_height="14dp"/>
         <TextView
-            android:text="Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/helloMsg"
+            android:id="@+id/byeMsg"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textAlignment="center"/>
     </LinearLayout>

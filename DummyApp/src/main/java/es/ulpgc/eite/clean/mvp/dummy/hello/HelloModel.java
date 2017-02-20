@@ -22,7 +22,7 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
   public void onCreate(Hello.ModelToPresenter presenter) {
     super.onCreate(presenter);
 
-    helloLabel = "Click Me!";
+    helloLabel = "Say Hello";
     helloText = "Hello World!";
   }
 
@@ -42,7 +42,7 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
 
 
   @Override
-  public void onChangeMsgByBtnClicked() {
+  public void onChangeMsgByHelloBtnClicked() {
     msgText = helloText;
     if(numOfTimes > 0) {
       msgText += ", " + numOfTimes + " times";
@@ -51,7 +51,7 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
   }
 
   @Override
-  public String getText() {
+  public String getHelloText() {
     return msgText;
   }
 
