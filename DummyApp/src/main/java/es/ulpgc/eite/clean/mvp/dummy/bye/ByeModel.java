@@ -1,14 +1,13 @@
-package es.ulpgc.eite.clean.mvp.dummy.hello;
+package es.ulpgc.eite.clean.mvp.dummy.bye;
 
 import es.ulpgc.eite.clean.mvp.GenericModel;
 
 
+public class ByeModel extends GenericModel<Bye.ModelToPresenter>
+    implements Bye.PresenterToModel {
 
-public class HelloModel extends GenericModel<Hello.ModelToPresenter>
-    implements Hello.PresenterToModel {
-
-  private String helloText;
-  private String helloLabel;
+  private String byeText;
+  private String byeLabel;
   private int numOfTimes;
   private String msgText;
 
@@ -19,11 +18,11 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
    * @param presenter Presenter interface
    */
   @Override
-  public void onCreate(Hello.ModelToPresenter presenter) {
+  public void onCreate(Bye.ModelToPresenter presenter) {
     super.onCreate(presenter);
 
-    helloLabel = "Click Me!";
-    helloText = "Hello World!";
+    byeLabel = "Click Me!";
+    byeText = "Hello World!";
   }
 
   /**
@@ -43,7 +42,7 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
 
   @Override
   public void onChangeMsgByBtnClicked() {
-    msgText = helloText;
+    msgText = byeText;
     if(numOfTimes > 0) {
       msgText += ", " + numOfTimes + " times";
     }
@@ -57,6 +56,6 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
 
   @Override
   public String getLabel() {
-    return helloLabel;
+    return byeLabel;
   }
 }

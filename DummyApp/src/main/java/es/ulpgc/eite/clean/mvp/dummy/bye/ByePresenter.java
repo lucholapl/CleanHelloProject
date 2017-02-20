@@ -1,4 +1,4 @@
-package es.ulpgc.eite.clean.mvp.dummy.dummy;
+package es.ulpgc.eite.clean.mvp.dummy.bye;
 
 
 import android.content.Context;
@@ -9,9 +9,9 @@ import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.GenericPresenter;
 import es.ulpgc.eite.clean.mvp.dummy.app.Mediator;
 
-public class DummyPresenter extends GenericPresenter
-    <Dummy.PresenterToView, Dummy.PresenterToModel, Dummy.ModelToPresenter, DummyModel>
-    implements Dummy.ViewToPresenter, Dummy.ModelToPresenter, Dummy.DummyTo, Dummy.ToDummy {
+public class ByePresenter extends GenericPresenter
+    <Bye.PresenterToView, Bye.PresenterToModel, Bye.ModelToPresenter, ByeModel>
+    implements Bye.ViewToPresenter, Bye.ModelToPresenter, Bye.ByeTo, Bye.ToBye {
 
 
   private boolean toolbarVisible;
@@ -27,14 +27,14 @@ public class DummyPresenter extends GenericPresenter
    * @param view The current VIEW instance
    */
   @Override
-  public void onCreate(Dummy.PresenterToView view) {
-    super.onCreate(DummyModel.class, this);
+  public void onCreate(Bye.PresenterToView view) {
+    super.onCreate(ByeModel.class, this);
     setView(view);
     Log.d(TAG, "calling onCreate()");
 
-    Log.d(TAG, "calling startingDummyScreen()");
+    Log.d(TAG, "calling startingByeScreen()");
     Mediator app = (Mediator) getView().getApplication();
-    app.startingDummyScreen(this);
+    app.startingByeScreen(this);
   }
 
   /**
@@ -45,7 +45,7 @@ public class DummyPresenter extends GenericPresenter
    * @param view The current VIEW instance
    */
   @Override
-  public void onResume(Dummy.PresenterToView view) {
+  public void onResume(Bye.PresenterToView view) {
     setView(view);
     Log.d(TAG, "calling onResume()");
 

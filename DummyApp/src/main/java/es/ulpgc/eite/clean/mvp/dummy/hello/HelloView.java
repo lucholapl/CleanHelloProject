@@ -12,8 +12,8 @@ import es.ulpgc.eite.clean.mvp.dummy.dummy.Dummy;
 import es.ulpgc.eite.clean.mvp.dummy.dummy.DummyPresenter;
 
 public class HelloView
-    extends GenericActivity<Dummy.PresenterToView, Dummy.ViewToPresenter, DummyPresenter>
-    implements Dummy.PresenterToView {
+    extends GenericActivity<Hello.PresenterToView, Hello.ViewToPresenter, HelloPresenter>
+    implements Hello.PresenterToView {
 
   private Toolbar toolbar;
   private Button button;
@@ -44,7 +44,7 @@ public class HelloView
    */
   @Override
   protected void onResume() {
-    super.onResume(DummyPresenter.class, this);
+    super.onResume(HelloPresenter.class, this);
   }
 
   /*

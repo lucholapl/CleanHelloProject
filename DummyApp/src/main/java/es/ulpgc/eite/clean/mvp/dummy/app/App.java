@@ -7,12 +7,14 @@ import android.content.Intent;
 import es.ulpgc.eite.clean.mvp.dummy.dummy.Dummy;
 import es.ulpgc.eite.clean.mvp.dummy.dummy.DummyView;
 import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
+import es.ulpgc.eite.clean.mvp.dummy.bye.Bye;
 
 
 public class App extends Application implements Mediator, Navigator {
 
   private DummyState toDummyState, dummyToState;
   private HelloState toHelloState;
+  private ByeState toByeState;
 
   @Override
   public void onCreate() {
@@ -43,6 +45,14 @@ public class App extends Application implements Mediator, Navigator {
     presenter.onScreenStarted();
   }
 
+  @Override
+  public void startingByeScreen(Bye.ToBye presenter){
+    if(toHelloState != null) {
+      presenter.setToolbarVisibility(toByeState.toolbarVisibility);
+      presenter.setTextVisibility(toByeState.textVisibility);
+    }
+    presenter.onScreenStarted();
+  }
   ///////////////////////////////////////////////////////////////////////////////////
   // Navigator /////////////////////////////////////////////////////////////////////
 
@@ -69,6 +79,10 @@ public class App extends Application implements Mediator, Navigator {
     boolean textVisibility;
   }
   private class HelloState {
+    boolean toolbarVisibility;
+    boolean textVisibility;
+  }
+  private class ByeState {
     boolean toolbarVisibility;
     boolean textVisibility;
   }
