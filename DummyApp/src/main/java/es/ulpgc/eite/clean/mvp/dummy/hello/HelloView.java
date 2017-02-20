@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.dummy.R;
-import es.ulpgc.eite.clean.mvp.dummy.dummy.Dummy;
-import es.ulpgc.eite.clean.mvp.dummy.dummy.DummyPresenter;
+import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
+import es.ulpgc.eite.clean.mvp.dummy.hello.HelloPresenter;
 
 public class HelloView
     extends GenericActivity<Hello.PresenterToView, Hello.ViewToPresenter, HelloPresenter>
@@ -51,7 +51,7 @@ public class HelloView
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_dummy, menu);
+    getMenuInflater().inflate(R.menu.menu_hello, menu);
     return true;
   }
 
