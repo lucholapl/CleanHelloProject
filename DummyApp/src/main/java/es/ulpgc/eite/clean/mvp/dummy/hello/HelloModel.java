@@ -3,7 +3,6 @@ package es.ulpgc.eite.clean.mvp.dummy.hello;
 import es.ulpgc.eite.clean.mvp.GenericModel;
 
 
-
 public class HelloModel extends GenericModel<Hello.ModelToPresenter>
     implements Hello.PresenterToModel {
 

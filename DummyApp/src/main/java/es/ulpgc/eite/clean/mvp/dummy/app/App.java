@@ -47,7 +47,7 @@ public class App extends Application implements Mediator, Navigator {
 
   @Override
   public void startingByeScreen(Bye.ToBye presenter){
-    if(toHelloState != null) {
+    if(toByeState != null) {
       presenter.setToolbarVisibility(toByeState.toolbarVisibility);
       presenter.setTextVisibility(toByeState.textVisibility);
     }

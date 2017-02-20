@@ -21,8 +21,8 @@ public class ByeModel extends GenericModel<Bye.ModelToPresenter>
   public void onCreate(Bye.ModelToPresenter presenter) {
     super.onCreate(presenter);
 
-    byeLabel = "Click Me!";
-    byeText = "Hello World!";
+    byeLabel = "Say bye!";
+    byeText = "Bye World!";
   }
 
   /**
@@ -41,7 +41,7 @@ public class ByeModel extends GenericModel<Bye.ModelToPresenter>
 
 
   @Override
-  public void onChangeMsgByBtnClicked() {
+  public void onChangeMsgByByeBtnClicked() {
     msgText = byeText;
     if(numOfTimes > 0) {
       msgText += ", " + numOfTimes + " times";
@@ -50,7 +50,7 @@ public class ByeModel extends GenericModel<Bye.ModelToPresenter>
   }
 
   @Override
-  public String getText() {
+  public String getByeText() {
     return msgText;
   }
 

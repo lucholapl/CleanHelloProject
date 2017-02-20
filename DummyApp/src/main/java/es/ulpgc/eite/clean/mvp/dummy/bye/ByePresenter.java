@@ -56,7 +56,7 @@ public class ByePresenter extends GenericPresenter
       checkTextVisibility();
 
       if (buttonClicked) {
-        getView().setText(getModel().getText());
+        getView().setText(getModel().getByeText());
       }
     }
   }
@@ -89,11 +89,11 @@ public class ByePresenter extends GenericPresenter
   // View To Presenter /////////////////////////////////////////////////////////////
 
   @Override
-  public void onButtonClicked() {
+  public void onButtonByeClicked() {
     Log.d(TAG, "calling onButtonClicked()");
     if(isViewRunning()) {
-      getModel().onChangeMsgByBtnClicked();
-      getView().setText(getModel().getText());
+      getModel().onChangeMsgByByeBtnClicked();
+      getView().setText(getModel().getByeText());
       textVisible = true;
       buttonClicked = true;
     }

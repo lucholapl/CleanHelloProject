@@ -36,7 +36,7 @@ public interface Bye {
    * Methods offered to VIEW to communicate with PRESENTER
    */
   interface ViewToPresenter extends Presenter<PresenterToView> {
-    void onButtonClicked();
+    void onButtonByeClicked();
   }
 
   /**
@@ -55,8 +55,10 @@ public interface Bye {
    * Methods offered to MODEL to communicate with PRESENTER
    */
   interface PresenterToModel extends Model<ModelToPresenter> {
-    void onChangeMsgByBtnClicked();
-    String getText();
+    void onChangeMsgByByeBtnClicked();
+
+    String getByeText();
+
     String getLabel();
   }
 

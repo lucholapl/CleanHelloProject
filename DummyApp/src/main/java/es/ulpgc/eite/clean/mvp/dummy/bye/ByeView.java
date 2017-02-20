@@ -24,16 +24,16 @@ public class ByeView
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_bye);
 
-    text = (TextView) findViewById(R.id.text);
+    text = (TextView) findViewById(R.id.byeMsg);
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    button = (Button) findViewById(R.id.button);
+    button = (Button) findViewById(R.id.sayByeBtn);
     button.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        getPresenter().onButtonClicked();
+        getPresenter().onButtonByeClicked();
       }
     });
   }
