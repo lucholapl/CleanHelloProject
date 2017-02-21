@@ -12,40 +12,48 @@ import es.ulpgc.eite.clean.mvp.dummy.bye.Bye;
 import es.ulpgc.eite.clean.mvp.dummy.bye.ByePresenter;
 
 public class ByeView
-    extends GenericActivity<Bye.PresenterToView, Bye.ViewToPresenter, ByePresenter>
-    implements Bye.PresenterToView {
+        extends GenericActivity<Bye.PresenterToView, Bye.ViewToPresenter, ByePresenter>
+        implements Bye.PresenterToView {
 
-  private Toolbar toolbar;
-  private Button button;
-  private TextView text;
+    private Toolbar toolbar;
+    private Button btnSayBye;
+    private Button btnGoToHello;
+    private TextView text;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_bye);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bye);
 
-    text = (TextView) findViewById(R.id.byeMsg);
+        text = (TextView) findViewById(R.id.byeMsg);
 
-    toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-    button = (Button) findViewById(R.id.sayByeBtn);
-    button.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        getPresenter().onButtonByeClicked();
-      }
-    });
-  }
+        btnSayBye = (Button) findViewById(R.id.sayByeBtn);
+        btnSayBye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().onButtonByeClicked();
+            }
+        });
+        btnGoToHello = (Button) findViewById(R.id.goToHelloBtn);
+        btnGoToHello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().onButtonGoToHelloClicked();
+            }
+        });
+    }
 
-  /**
-   * Method that initialized MVP objects
-   * {@link super#onResume(Class, Object)} should always be called
-   */
-  @Override
-  protected void onResume() {
-    super.onResume(ByePresenter.class, this);
-  }
+    /**
+     * Method that initialized MVP objects
+     * {@link super#onResume(Class, Object)} should always be called
+     */
+    @Override
+    protected void onResume() {
+        super.onResume(ByePresenter.class, this);
+    }
 
   /*
   @Override
@@ -72,36 +80,36 @@ public class ByeView
   */
 
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // Presenter To View /////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////
+    // Presenter To View /////////////////////////////////////////////////////////////
 
-  @Override
-  public void finishScreen() {
-    finish();
-  }
+    @Override
+    public void finishScreen() {
+        finish();
+    }
 
-  @Override
-  public void hideToolbar() {
-    toolbar.setVisibility(View.GONE);
-  }
+    @Override
+    public void hideToolbar() {
+        toolbar.setVisibility(View.GONE);
+    }
 
-  @Override
-  public void hideText() {
-    text.setVisibility(View.GONE);
-  }
+    @Override
+    public void hideText() {
+        text.setVisibility(View.GONE);
+    }
 
-  @Override
-  public void showText() {
-    text.setVisibility(View.VISIBLE);
-  }
+    @Override
+    public void showText() {
+        text.setVisibility(View.VISIBLE);
+    }
 
-  @Override
-  public void setText(String txt) {
-    text.setText(txt);
-  }
+    @Override
+    public void setText(String txt) {
+        text.setText(txt);
+    }
 
-  @Override
-  public void setLabel(String txt) {
-    button.setText(txt);
-  }
+    @Override
+    public void setLabel(String txt) {
+        btnSayBye.setText(txt);
+    }
 }

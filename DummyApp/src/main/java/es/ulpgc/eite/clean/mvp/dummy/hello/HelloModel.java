@@ -4,58 +4,58 @@ import es.ulpgc.eite.clean.mvp.GenericModel;
 
 
 public class HelloModel extends GenericModel<Hello.ModelToPresenter>
-    implements Hello.PresenterToModel {
+        implements Hello.PresenterToModel {
 
-  private String helloText;
-  private String helloLabel;
-  private int numOfTimes;
-  private String msgText;
+    private String helloText;
+    private String helloLabel;
+    private int numOfTimes;
+    private String msgText;
 
-  /**
-   * Method that recovers a reference to the PRESENTER
-   * You must ALWAYS call {@link super#onCreate(Object)} here
-   *
-   * @param presenter Presenter interface
-   */
-  @Override
-  public void onCreate(Hello.ModelToPresenter presenter) {
-    super.onCreate(presenter);
+    /**
+     * Method that recovers a reference to the PRESENTER
+     * You must ALWAYS call {@link super#onCreate(Object)} here
+     *
+     * @param presenter Presenter interface
+     */
+    @Override
+    public void onCreate(Hello.ModelToPresenter presenter) {
+        super.onCreate(presenter);
 
-    helloLabel = "Say Hello";
-    helloText = "Hello World!";
-  }
-
-  /**
-   * Called by layer PRESENTER when VIEW pass for a reconstruction/destruction.
-   * Usefull for kill/stop activities that could be running on the background Threads
-   *
-   * @param isChangingConfiguration Informs that a change is occurring on the configuration
-   */
-  @Override
-  public void onDestroy(boolean isChangingConfiguration) {
-
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////////
-  // Presenter To Model ////////////////////////////////////////////////////////////
-
-
-  @Override
-  public void onChangeMsgByHelloBtnClicked() {
-    msgText = helloText;
-    if(numOfTimes > 0) {
-      msgText += ", " + numOfTimes + " times";
+        helloLabel = "Say Hello";
+        helloText = "Hello World!";
     }
-    numOfTimes++;
-  }
 
-  @Override
-  public String getHelloText() {
-    return msgText;
-  }
+    /**
+     * Called by layer PRESENTER when VIEW pass for a reconstruction/destruction.
+     * Usefull for kill/stop activities that could be running on the background Threads
+     *
+     * @param isChangingConfiguration Informs that a change is occurring on the configuration
+     */
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
 
-  @Override
-  public String getLabel() {
-    return helloLabel;
-  }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    // Presenter To Model ////////////////////////////////////////////////////////////
+
+
+    @Override
+    public void onChangeMsgByHelloBtnClicked() {
+        msgText = helloText;
+        if (numOfTimes > 0) {
+            msgText += ", " + numOfTimes + " times";
+        }
+        numOfTimes++;
+    }
+
+    @Override
+    public String getHelloText() {
+        return msgText;
+    }
+
+    @Override
+    public String getLabel() {
+        return helloLabel;
+    }
 }

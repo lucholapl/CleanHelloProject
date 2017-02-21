@@ -13,59 +13,73 @@ import es.ulpgc.eite.clean.mvp.Presenter;
 public interface Bye {
 
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // State /////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////
+    // State /////////////////////////////////////////////////////////////////////////
 
-  interface ToBye {
-    void onScreenStarted();
-    void setToolbarVisibility(boolean visible);
-    void setTextVisibility(boolean visible);
-  }
+    interface ToBye {
+        void onScreenStarted();
 
-  interface ByeTo {
-    Context getManagedContext();
-    void destroyView();
-    boolean isToolbarVisible();
-    boolean isTextVisible();
-  }
+        void setToolbarVisibility(boolean visible);
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // Screen ////////////////////////////////////////////////////////////////////////
+        void setTextVisibility(boolean visible);
+    }
 
-  /**
-   * Methods offered to VIEW to communicate with PRESENTER
-   */
-  interface ViewToPresenter extends Presenter<PresenterToView> {
-    void onButtonByeClicked();
-  }
+    interface ByeTo {
+        Context getManagedContext();
 
-  /**
-   * Required VIEW methods available to PRESENTER
-   */
-  interface PresenterToView extends ContextView {
-    void finishScreen();
-    void hideToolbar();
-    void hideText();
-    void showText();
-    void setText(String txt);
-    void setLabel(String txt);
-  }
+        void destroyView();
 
-  /**
-   * Methods offered to MODEL to communicate with PRESENTER
-   */
-  interface PresenterToModel extends Model<ModelToPresenter> {
-    void onChangeMsgByByeBtnClicked();
+        boolean isToolbarVisible();
 
-    String getByeText();
+        boolean isTextVisible();
+    }
 
-    String getLabel();
-  }
+    ///////////////////////////////////////////////////////////////////////////////////
+    // Screen ////////////////////////////////////////////////////////////////////////
 
-  /**
-   * Required PRESENTER methods available to MODEL
-   */
-  interface ModelToPresenter {
+    /**
+     * Methods offered to VIEW to communicate with PRESENTER
+     */
+    interface ViewToPresenter extends Presenter<PresenterToView> {
+        void onButtonByeClicked();
 
-  }
+        void onButtonGoToHelloClicked();
+    }
+
+    /**
+     * Required VIEW methods available to PRESENTER
+     */
+    interface PresenterToView extends ContextView {
+        void finishScreen();
+
+        void hideToolbar();
+
+        void hideText();
+
+        void showText();
+
+        void setText(String txt);
+
+        void setLabel(String txt);
+    }
+
+    /**
+     * Methods offered to MODEL to communicate with PRESENTER
+     */
+    interface PresenterToModel extends Model<ModelToPresenter> {
+        void onChangeMsgByByeBtnClicked();
+
+
+
+        String getLabel();
+
+        String getText();
+    }
+
+    /**
+     * Required PRESENTER methods available to MODEL
+     */
+    interface ModelToPresenter {
+
+    }
 }

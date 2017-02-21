@@ -13,64 +13,75 @@ import es.ulpgc.eite.clean.mvp.Presenter;
 public interface Hello {
 
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // State /////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////
+    // State /////////////////////////////////////////////////////////////////////////
 
-  interface ToHello {
-    void onScreenStarted();
-    void setToolbarVisibility(boolean visible);
-    void setTextVisibility(boolean visible);
-  }
+    interface ToHello {
+        void onScreenStarted();
 
-  interface HelloTo {
-    Context getManagedContext();
-    void destroyView();
-    boolean isToolbarVisible();
-    boolean isTextVisible();
-  }
+        void setToolbarVisibility(boolean visible);
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // Screen ////////////////////////////////////////////////////////////////////////
+        void setTextVisibility(boolean visible);
+    }
 
-  /**
-   * Methods offered to VIEW to communicate with PRESENTER
-   */
-  interface ViewToPresenter extends Presenter<PresenterToView> {
+    interface HelloTo {
+        Context getManagedContext();
 
+        void destroyView();
 
+        boolean isToolbarVisible();
 
-    void onButtonHelloClicked();
-  }
+        boolean isTextVisible();
+    }
 
-  /**
-   * Required VIEW methods available to PRESENTER
-   */
-  interface PresenterToView extends ContextView {
-    void finishScreen();
-    void hideToolbar();
-    void hideText();
-    void showText();
-    void setText(String txt);
-    void setLabel(String txt);
-  }
+    ///////////////////////////////////////////////////////////////////////////////////
+    // Screen ////////////////////////////////////////////////////////////////////////
 
-  /**
-   * Methods offered to MODEL to communicate with PRESENTER
-   */
-  interface PresenterToModel extends Model<ModelToPresenter> {
+    /**
+     * Methods offered to VIEW to communicate with PRESENTER
+     */
+    interface ViewToPresenter extends Presenter<PresenterToView> {
 
 
-    void onChangeMsgByHelloBtnClicked();
+        void onButtonHelloClicked();
 
-    String getHelloText();
+        void onButtonGoToByeClicked();
+    }
 
-    String getLabel();
-  }
+    /**
+     * Required VIEW methods available to PRESENTER
+     */
+    interface PresenterToView extends ContextView {
+        void finishScreen();
 
-  /**
-   * Required PRESENTER methods available to MODEL
-   */
-  interface ModelToPresenter {
+        void hideToolbar();
 
-  }
+        void hideText();
+
+        void showText();
+
+        void setText(String txt);
+
+        void setLabel(String txt);
+    }
+
+    /**
+     * Methods offered to MODEL to communicate with PRESENTER
+     */
+    interface PresenterToModel extends Model<ModelToPresenter> {
+
+
+        void onChangeMsgByHelloBtnClicked();
+
+        String getHelloText();
+
+        String getLabel();
+    }
+
+    /**
+     * Required PRESENTER methods available to MODEL
+     */
+    interface ModelToPresenter {
+
+    }
 }

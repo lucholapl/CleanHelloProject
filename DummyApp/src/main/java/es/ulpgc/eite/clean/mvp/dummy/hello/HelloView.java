@@ -12,40 +12,49 @@ import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
 import es.ulpgc.eite.clean.mvp.dummy.hello.HelloPresenter;
 
 public class HelloView
-    extends GenericActivity<Hello.PresenterToView, Hello.ViewToPresenter, HelloPresenter>
-    implements Hello.PresenterToView {
+        extends GenericActivity<Hello.PresenterToView, Hello.ViewToPresenter, HelloPresenter>
+        implements Hello.PresenterToView {
 
-  private Toolbar toolbar;
-  private Button button;
-  private TextView text;
+    private Toolbar toolbar;
+    private Button btnSayHello;
+    private Button btnGoToBye;
+    private TextView text;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_hello);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hello);
 
-    text = (TextView) findViewById(R.id.helloMsg);
+        text = (TextView) findViewById(R.id.helloMsg);
 
-    toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-    button = (Button) findViewById(R.id.sayHelloBtn);
-    button.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        getPresenter().onButtonHelloClicked();
-      }
-    });
-  }
+        btnSayHello = (Button) findViewById(R.id.sayHelloBtn);
+        btnSayHello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().onButtonHelloClicked();
+            }
+        });
 
-  /**
-   * Method that initialized MVP objects
-   * {@link super#onResume(Class, Object)} should always be called
-   */
-  @Override
-  protected void onResume() {
-    super.onResume(HelloPresenter.class, this);
-  }
+        btnGoToBye = (Button) findViewById(R.id.goToByeBtn);
+        btnGoToBye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPresenter().onButtonGoToByeClicked();
+            }
+        });
+    }
+
+    /**
+     * Method that initialized MVP objects
+     * {@link super#onResume(Class, Object)} should always be called
+     */
+    @Override
+    protected void onResume() {
+        super.onResume(HelloPresenter.class, this);
+    }
 
   /*
   @Override
@@ -72,36 +81,37 @@ public class HelloView
   */
 
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // Presenter To View /////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////
+    // Presenter To View /////////////////////////////////////////////////////////////
 
-  @Override
-  public void finishScreen() {
-    finish();
-  }
+    @Override
+    public void finishScreen() {
+        finish();
+    }
 
-  @Override
-  public void hideToolbar() {
-    toolbar.setVisibility(View.GONE);
-  }
+    @Override
+    public void hideToolbar() {
+        toolbar.setVisibility(View.GONE);
+    }
 
-  @Override
-  public void hideText() {
-    text.setVisibility(View.GONE);
-  }
+    @Override
+    public void hideText() {
+        text.setVisibility(View.GONE);
+    }
 
-  @Override
-  public void showText() {
-    text.setVisibility(View.VISIBLE);
-  }
+    @Override
+    public void showText() {
+        text.setVisibility(View.VISIBLE);
+    }
 
-  @Override
-  public void setText(String txt) {
-    text.setText(txt);
-  }
+    @Override
+    public void setText(String txt) {
+        text.setText(txt);
+    }
 
-  @Override
-  public void setLabel(String txt) {
-    button.setText(txt);
-  }
+    @Override
+    public void setLabel(String txt) {
+        btnSayHello.setText(txt);
+        //btnGoToBye.setText(txt);
+    }
 }

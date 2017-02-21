@@ -8,169 +8,183 @@ import es.ulpgc.eite.clean.mvp.ContextView;
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.GenericPresenter;
 import es.ulpgc.eite.clean.mvp.dummy.app.Mediator;
+import es.ulpgc.eite.clean.mvp.dummy.app.Navigator;
 
 public class ByePresenter extends GenericPresenter
-    <Bye.PresenterToView, Bye.PresenterToModel, Bye.ModelToPresenter, ByeModel>
-    implements Bye.ViewToPresenter, Bye.ModelToPresenter, Bye.ByeTo, Bye.ToBye {
+        <Bye.PresenterToView, Bye.PresenterToModel, Bye.ModelToPresenter, ByeModel>
+        implements Bye.ViewToPresenter, Bye.ModelToPresenter, Bye.ByeTo, Bye.ToBye {
 
 
-  private boolean toolbarVisible;
-  private boolean buttonClicked;
-  private boolean textVisible;
+    private boolean toolbarVisible;
+    private boolean buttonClicked;
+    private boolean textVisible;
 
-  /**
-   * Operation called during VIEW creation in {@link GenericActivity#onResume(Class, Object)}
-   * Responsible to initialize MODEL.
-   * Always call {@link GenericPresenter#onCreate(Class, Object)} to initialize the object
-   * Always call  {@link GenericPresenter#setView(ContextView)} to save a PresenterToView reference
-   *
-   * @param view The current VIEW instance
-   */
-  @Override
-  public void onCreate(Bye.PresenterToView view) {
-    super.onCreate(ByeModel.class, this);
-    setView(view);
-    Log.d(TAG, "calling onCreate()");
+    /**
+     * Operation called during VIEW creation in {@link GenericActivity#onResume(Class, Object)}
+     * Responsible to initialize MODEL.
+     * Always call {@link GenericPresenter#onCreate(Class, Object)} to initialize the object
+     * Always call  {@link GenericPresenter#setView(ContextView)} to save a PresenterToView reference
+     *
+     * @param view The current VIEW instance
+     */
+    @Override
+    public void onCreate(Bye.PresenterToView view) {
+        super.onCreate(ByeModel.class, this);
+        setView(view);
+        Log.d(TAG, "calling onCreate()");
 
-    Log.d(TAG, "calling startingByeScreen()");
-    Mediator app = (Mediator) getView().getApplication();
-    app.startingByeScreen(this);
-  }
-
-  /**
-   * Operation called by VIEW after its reconstruction.
-   * Always call {@link GenericPresenter#setView(ContextView)}
-   * to save the new instance of PresenterToView
-   *
-   * @param view The current VIEW instance
-   */
-  @Override
-  public void onResume(Bye.PresenterToView view) {
-    setView(view);
-    Log.d(TAG, "calling onResume()");
-
-    if(configurationChangeOccurred()) {
-      getView().setLabel(getModel().getLabel());
-
-      checkToolbarVisibility();
-      checkTextVisibility();
-
-      if (buttonClicked) {
-        getView().setText(getModel().getByeText());
-      }
+        Log.d(TAG, "calling startingByeScreen()");
+        Mediator app = (Mediator) getView().getApplication();
+        app.startingByeScreen(this);
     }
-  }
 
-  /**
-   * Helper method to inform Presenter that a onBackPressed event occurred
-   * Called by {@link GenericActivity}
-   */
-  @Override
-  public void onBackPressed() {
-    Log.d(TAG, "calling onBackPressed()");
-  }
+    /**
+     * Operation called by VIEW after its reconstruction.
+     * Always call {@link GenericPresenter#setView(ContextView)}
+     * to save the new instance of PresenterToView
+     *
+     * @param view The current VIEW instance
+     */
+    @Override
+    public void onResume(Bye.PresenterToView view) {
+        setView(view);
+        Log.d(TAG, "calling onResume()");
 
-  /**
-   * Hook method called when the VIEW is being destroyed or
-   * having its configuration changed.
-   * Responsible to maintain MVP synchronized with Activity lifecycle.
-   * Called by onDestroy methods of the VIEW layer, like: {@link GenericActivity#onDestroy()}
-   *
-   * @param isChangingConfiguration true: configuration changing & false: being destroyed
-   */
-  @Override
-  public void onDestroy(boolean isChangingConfiguration) {
-    super.onDestroy(isChangingConfiguration);
-    Log.d(TAG, "calling onDestroy()");
-  }
+        if (configurationChangeOccurred()) {
+            getView().setLabel(getModel().getLabel());
 
+            checkToolbarVisibility();
+            checkTextVisibility();
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // View To Presenter /////////////////////////////////////////////////////////////
-
-  @Override
-  public void onButtonByeClicked() {
-    Log.d(TAG, "calling onButtonClicked()");
-    if(isViewRunning()) {
-      getModel().onChangeMsgByByeBtnClicked();
-      getView().setText(getModel().getByeText());
-      textVisible = true;
-      buttonClicked = true;
+            if (buttonClicked) {
+                getView().setText(getModel().getText());
+                getView().showText();
+            }
+        }
     }
-    checkTextVisibility();
-  }
 
-
-  ///////////////////////////////////////////////////////////////////////////////////
-  // To Bye //////////////////////////////////////////////////////////////////////
-
-  @Override
-  public void onScreenStarted() {
-    Log.d(TAG, "calling onScreenStarted()");
-    if(isViewRunning()) {
-      getView().setLabel(getModel().getLabel());
+    /**
+     * Helper method to inform Presenter that a onBackPressed event occurred
+     * Called by {@link GenericActivity}
+     */
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "calling onBackPressed()");
     }
-    checkToolbarVisibility();
-    checkTextVisibility();
-  }
 
-  @Override
-  public void setToolbarVisibility(boolean visible) {
-    toolbarVisible = visible;
-  }
-
-  @Override
-  public void setTextVisibility(boolean visible) {
-    textVisible = visible;
-  }
-
-
-  ///////////////////////////////////////////////////////////////////////////////////
-  // Bye To //////////////////////////////////////////////////////////////////////
-
-
-  @Override
-  public Context getManagedContext(){
-    return getActivityContext();
-  }
-
-  @Override
-  public void destroyView(){
-    if(isViewRunning()) {
-      getView().finishScreen();
+    /**
+     * Hook method called when the VIEW is being destroyed or
+     * having its configuration changed.
+     * Responsible to maintain MVP synchronized with Activity lifecycle.
+     * Called by onDestroy methods of the VIEW layer, like: {@link GenericActivity#onDestroy()}
+     *
+     * @param isChangingConfiguration true: configuration changing & false: being destroyed
+     */
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        super.onDestroy(isChangingConfiguration);
+        Log.d(TAG, "calling onDestroy()");
     }
-  }
-  @Override
-  public boolean isToolbarVisible() {
-    return toolbarVisible;
-  }
-
-  @Override
-  public boolean isTextVisible() {
-    return textVisible;
-  }
 
 
-  ///////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////
+    // View To Presenter /////////////////////////////////////////////////////////////
 
-  private void checkToolbarVisibility(){
-    Log.d(TAG, "calling checkToolbarVisibility()");
-    if(isViewRunning()) {
-      if (!toolbarVisible) {
-        getView().hideToolbar();
-      }
+    @Override
+    public void onButtonByeClicked() {
+        Log.d(TAG, "calling onButtonByeClicked()");
+        if (isViewRunning()) {
+            getModel().onChangeMsgByByeBtnClicked();
+            getView().setText(getModel().getText());
+            textVisible = true;
+            buttonClicked = true;
+        }
+        checkTextVisibility();
     }
-  }
 
-  private void checkTextVisibility(){
-    Log.d(TAG, "calling checkTextVisibility()");
-    if(isViewRunning()) {
-      if(!textVisible) {
-        getView().hideText();
-      } else {
-        getView().showText();
-      }
+    @Override
+    public void onButtonGoToHelloClicked() {
+        Log.d(TAG, "calling onButtonGoToHelloClicked()");
+
+        if (isViewRunning()) {
+            Navigator app = (Navigator) getView().getApplication();
+            app.goToHelloScreen(this);
+        }
+        checkTextVisibility();
     }
-  }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    // To Bye //////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void onScreenStarted() {
+        Log.d(TAG, "calling onScreenStarted()");
+        if (isViewRunning()) {
+            getView().setLabel(getModel().getLabel());
+        }
+        checkToolbarVisibility();
+        checkTextVisibility();
+    }
+
+    @Override
+    public void setToolbarVisibility(boolean visible) {
+        toolbarVisible = visible;
+    }
+
+    @Override
+    public void setTextVisibility(boolean visible) {
+        textVisible = visible;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    // Bye To //////////////////////////////////////////////////////////////////////
+
+
+    @Override
+    public Context getManagedContext() {
+        return getActivityContext();
+    }
+
+    @Override
+    public void destroyView() {
+        if (isViewRunning()) {
+            getView().finishScreen();
+        }
+    }
+
+    @Override
+    public boolean isToolbarVisible() {
+        return toolbarVisible;
+    }
+
+    @Override
+    public boolean isTextVisible() {
+        return textVisible;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    private void checkToolbarVisibility() {
+        Log.d(TAG, "calling checkToolbarVisibility()");
+        if (isViewRunning()) {
+            if (!toolbarVisible) {
+                getView().hideToolbar();
+            }
+        }
+    }
+
+    private void checkTextVisibility() {
+        Log.d(TAG, "calling checkTextVisibility()");
+        if (isViewRunning()) {
+            if (!textVisible) {
+                getView().hideText();
+            } else {
+                getView().showText();
+            }
+        }
+    }
 
 }
