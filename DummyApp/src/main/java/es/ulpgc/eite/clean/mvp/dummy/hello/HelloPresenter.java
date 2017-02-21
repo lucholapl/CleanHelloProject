@@ -164,6 +164,11 @@ public class HelloPresenter extends GenericPresenter
         return textVisible;
     }
 
+    @Override
+    public boolean checkButtonSayClicked() {
+        return this.buttonHelloClicked;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////////////
 

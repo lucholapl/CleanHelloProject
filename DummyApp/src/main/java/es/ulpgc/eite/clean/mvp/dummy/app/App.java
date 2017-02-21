@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
-//import es.ulpgc.eite.clean.mvp.dummy.dummy.Dummy;
-//import es.ulpgc.eite.clean.mvp.dummy.dummy.DummyView;
 import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
 import es.ulpgc.eite.clean.mvp.dummy.hello.HelloView;
 import es.ulpgc.eite.clean.mvp.dummy.bye.Bye;
@@ -21,8 +19,12 @@ public class App extends Application implements Mediator, Navigator {
     public void onCreate() {
         super.onCreate();
         toHelloState = new HelloState();
-        toHelloState.toolbarVisibility = false;
-        toHelloState.textVisibility = false;
+        toHelloState.toolbarVisibility = true;
+        toHelloState.textVisibility = true;
+
+        toByeState = new ByeState();
+        toByeState.toolbarVisibility = true;
+        toByeState.textVisibility = true;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -54,6 +56,11 @@ public class App extends Application implements Mediator, Navigator {
         }
         presenter.onScreenStarted();
     }
+
+    @Override
+    public boolean checkButtonSayClicked() {
+        return byeToState.btnSayClicked;
+    }
     ///////////////////////////////////////////////////////////////////////////////////
     // Navigator /////////////////////////////////////////////////////////////////////
 
@@ -63,6 +70,7 @@ public class App extends Application implements Mediator, Navigator {
         helloToState = new HelloState();
         helloToState.toolbarVisibility = presenter.isToolbarVisible();
         helloToState.textVisibility = presenter.isTextVisible();
+        //helloToState.btnSayClicked = presenter.checkButtonSayClicked();
 
         Context view = presenter.getManagedContext();
         if (view != null) {
@@ -77,6 +85,7 @@ public class App extends Application implements Mediator, Navigator {
         byeToState = new ByeState();
         byeToState.toolbarVisibility = presenter.isToolbarVisible();
         byeToState.textVisibility = presenter.isTextVisible();
+        byeToState.btnSayClicked = presenter.checkButtonSayClicked();
 
         Context view = presenter.getManagedContext();
         if (view != null) {
@@ -89,18 +98,16 @@ public class App extends Application implements Mediator, Navigator {
     ///////////////////////////////////////////////////////////////////////////////////
     // State /////////////////////////////////////////////////////////////////////////
 
-    private class DummyState {
-        boolean toolbarVisibility;
-        boolean textVisibility;
-    }
 
     private class HelloState {
         boolean toolbarVisibility;
         boolean textVisibility;
+        //boolean btnSayClicked;
     }
 
     private class ByeState {
         boolean toolbarVisibility;
         boolean textVisibility;
+        boolean btnSayClicked;
     }
 }

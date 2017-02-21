@@ -32,6 +32,8 @@ public interface Bye {
         boolean isToolbarVisible();
 
         boolean isTextVisible();
+
+        //boolean checkButtonSayClicked();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +46,8 @@ public interface Bye {
         void onButtonByeClicked();
 
         void onButtonGoToHelloClicked();
+
+        boolean wasSayButtonClickedBefore();
     }
 
     /**

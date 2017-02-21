@@ -32,6 +32,8 @@ public interface Hello {
         boolean isToolbarVisible();
 
         boolean isTextVisible();
+
+        boolean checkButtonSayClicked();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////

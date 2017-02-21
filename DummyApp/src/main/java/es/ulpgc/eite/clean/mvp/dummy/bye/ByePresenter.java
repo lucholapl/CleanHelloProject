@@ -187,4 +187,10 @@ public class ByePresenter extends GenericPresenter
         }
     }
 
+    @Override
+    public boolean wasSayButtonClickedBefore() {
+        Mediator mediador = (Mediator) getApplication();
+        return mediador.checkButtonSayClicked();
+    }
+
 }

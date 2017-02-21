@@ -43,10 +43,10 @@ public class ByeModel extends GenericModel<Bye.ModelToPresenter>
     @Override
     public void onChangeMsgByByeBtnClicked() {
         msgText = byeText;
-        if (numOfTimes > 0) {
-            msgText += ", " + numOfTimes + " times";
-        }
-        numOfTimes++;
+//        if (numOfTimes > 0) {
+//            msgText += ", " + numOfTimes + " times";
+//        }
+//        numOfTimes++;
     }
 
     @Override

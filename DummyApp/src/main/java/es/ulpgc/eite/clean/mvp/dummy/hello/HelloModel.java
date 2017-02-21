@@ -43,10 +43,10 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
     @Override
     public void onChangeMsgByHelloBtnClicked() {
         msgText = helloText;
-        if (numOfTimes > 0) {
-            msgText += ", " + numOfTimes + " times";
-        }
-        numOfTimes++;
+//        if (numOfTimes > 0) {
+//            msgText += ", " + numOfTimes + " times";
+//        }
+//        numOfTimes++;
     }
 
     @Override
