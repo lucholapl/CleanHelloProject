@@ -2,6 +2,7 @@ package es.ulpgc.eite.clean.mvp.dummy.bye;
 
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import es.ulpgc.eite.clean.mvp.ContextView;
@@ -17,6 +18,7 @@ public class ByePresenter extends GenericPresenter
 
     private boolean toolbarVisible;
     private boolean buttonClicked;
+    private boolean progressBarVisible;
     private boolean textVisible;
 
     /**
@@ -94,8 +96,25 @@ public class ByePresenter extends GenericPresenter
     public void onSayByeBtnClicked() {
         Log.d(TAG, "calling onSayByeBtnClicked()");
         if (isViewRunning()) {
+            buttonClicked = true;
             checkByeMsg();
-            setTextVisibility(true);
+            new CountDownTimer(3000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    progressBarVisible = true;
+                    setTextVisibility(false);
+                    checkProgressBarVisibility();
+                    checkTextVisibility();
+                }
+
+                public void onFinish() {
+                    progressBarVisible = false;
+                    checkByeMsg();
+                    setTextVisibility(true);
+                    checkProgressBarVisibility();
+                    checkTextVisibility();
+                }
+            }.start();
         }
     }
 
@@ -126,6 +145,9 @@ public class ByePresenter extends GenericPresenter
                 getView().hideToolbar();
             }
         }
+        checkProgressBarVisibility();
+        checkTextVisibility();
+
     }
 
     @Override
@@ -136,6 +158,11 @@ public class ByePresenter extends GenericPresenter
     @Override
     public void setTextVisibility(boolean visible) {
         textVisible = visible;
+    }
+
+    @Override
+    public void setProgressBarVisibility(boolean visible) {
+        progressBarVisible = visible;
     }
 
 
@@ -181,6 +208,17 @@ public class ByePresenter extends GenericPresenter
         }
     }
 
+    private void checkProgressBarVisibility() {
+        Log.d(TAG, "calling checkProgressBarVisibility()");
+        if(isViewRunning()) {
+            if (!progressBarVisible) {
+                getView().hideProgressBar();
+            }else{
+                getView().showProgressBar();
+            }
+        }
+    }
+
     private void checkTextVisibility() {
         Log.d(TAG, "calling checkTextVisibility()");
         if (isViewRunning()) {
@@ -191,6 +229,20 @@ public class ByePresenter extends GenericPresenter
             }
         }
     }
+
+    public void startProgressBar() {
+        new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                getView().showProgressBar();
+            }
+
+            public void onFinish() {
+                getView().hideProgressBar();
+            }
+        }.start();
+    }
+
 //
 //    @Override
 //    public boolean wasSayButtonClickedBefore() {

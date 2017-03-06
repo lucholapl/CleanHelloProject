@@ -2,8 +2,10 @@ package es.ulpgc.eite.clean.mvp.dummy.bye;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import es.ulpgc.eite.clean.mvp.GenericActivity;
@@ -14,8 +16,8 @@ public class ByeView
         implements Bye.PresenterToView {
 
     private Toolbar toolbar;
-    private Button btnSayByeView;
-    private Button btnGoToHelloView;
+    private Button btnSayByeView,btnGoToHelloView;
+    private ProgressBar progressBar;
     private TextView byeMsgView;
 
     @Override
@@ -27,6 +29,9 @@ public class ByeView
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBye);
+
 
         btnSayByeView = (Button) findViewById(R.id.sayByeBtn);
         btnSayByeView.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +94,17 @@ public class ByeView
     @Override
     public void hideToolbar() {
         toolbar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgressBar() {
+        Log.d("View", "showing progress bar");
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override

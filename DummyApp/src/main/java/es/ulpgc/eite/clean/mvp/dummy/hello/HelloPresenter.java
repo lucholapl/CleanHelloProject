@@ -2,6 +2,7 @@ package es.ulpgc.eite.clean.mvp.dummy.hello;
 
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import es.ulpgc.eite.clean.mvp.ContextView;
@@ -17,6 +18,7 @@ public class HelloPresenter extends GenericPresenter
 
     private boolean toolbarVisible;
     private boolean buttonClicked;
+    private boolean progressBarVisible;
     private boolean textVisible;
 
     /**
@@ -111,13 +113,34 @@ public class HelloPresenter extends GenericPresenter
     @Override
     public void onSayHelloBtnClicked() {
         Log.d(TAG, "calling onSayHelloBtnClicked()");
-
-        if(isViewRunning()) {
-            //getView().showHelloMsg();
-            //getView().setHelloMsg(getModel().getHelloMsg());
+        if (isViewRunning()) {
+            buttonClicked = true;
             checkHelloMsg();
-            setTextVisibility(true);
-        }
+            new CountDownTimer(3000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    progressBarVisible = true;
+                    setTextVisibility(false);
+                    checkProgressBarVisibility();
+                    checkTextVisibility();
+                }
+
+                public void onFinish() {
+                    progressBarVisible = false;
+                    checkHelloMsg();
+                    setTextVisibility(true);
+                    checkProgressBarVisibility();
+                    checkTextVisibility();
+                }
+            }.start();
+
+
+//        if(isViewRunning()) {
+//            //getView().showHelloMsg();
+//            //getView().setHelloMsg(getModel().getHelloMsg());
+//            checkHelloMsg();
+//            setTextVisibility(true);
+//        }
 
     /*
     if(isViewRunning()) {
@@ -128,8 +151,8 @@ public class HelloPresenter extends GenericPresenter
     }
     checkTextVisibility();
     */
+        }
     }
-
     @Override
     public void onGoToByeBtnClicked() {
         Navigator app = (Navigator) getView().getApplication();
@@ -170,6 +193,8 @@ public class HelloPresenter extends GenericPresenter
                 getView().hideToolbar();
             }
         }
+        checkProgressBarVisibility();
+        checkTextVisibility();
 
     /*
     if(isViewRunning()) {
@@ -189,6 +214,11 @@ public class HelloPresenter extends GenericPresenter
     public void setTextVisibility(boolean visible) {
         textVisible = visible;
     }
+
+    @Override
+   public void setProgressBarVisibility(boolean visible) {
+           progressBarVisible = visible;
+        }
 
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -236,6 +266,16 @@ public class HelloPresenter extends GenericPresenter
         }
 
     }
+    private void checkProgressBarVisibility() {
+        Log.d(TAG, "calling checkProgressBarVisibility()");
+        if(isViewRunning()) {
+            if (!progressBarVisible) {
+                getView().hideProgressBar();
+            }else{
+                getView().showProgressBar();
+            }
+        }
+    }
 
     private void checkTextVisibility(){
         Log.d(TAG, "calling checkTextVisibility()");
@@ -246,6 +286,19 @@ public class HelloPresenter extends GenericPresenter
                 getView().showHelloMsg();
             }
         }
+    }
+
+    public void startProgressBar() {
+        new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                getView().showProgressBar();
+            }
+
+            public void onFinish() {
+                getView().hideProgressBar();
+            }
+        }.start();
     }
 
 }

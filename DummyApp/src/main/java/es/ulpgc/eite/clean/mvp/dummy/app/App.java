@@ -103,11 +103,13 @@ public class App extends Application implements Mediator, Navigator {
 
     private class ByeState {
         boolean toolbarVisibility;
+        boolean progressBarVisibility;
         //boolean textVisibility;
     }
 
     private class HelloState {
         boolean toolbarVisibility;
+        boolean progressBarVisibility;
         //boolean textVisibility;
     }
 

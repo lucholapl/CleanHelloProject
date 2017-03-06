@@ -2,8 +2,10 @@ package es.ulpgc.eite.clean.mvp.dummy.hello;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import es.ulpgc.eite.clean.mvp.GenericActivity;
@@ -15,6 +17,7 @@ public class HelloView
 
     private Toolbar toolbar;
     private Button btnSayHelloView, btnGoToByeView;
+    private ProgressBar progressBar;
     private TextView helloMsgView;
 
     @Override
@@ -26,6 +29,8 @@ public class HelloView
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressHello);
 
         btnSayHelloView = (Button) findViewById(R.id.sayHelloBtn);
         btnSayHelloView.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +101,17 @@ public class HelloView
     }
 
     @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgressBar() {
+        Log.d("View", "showing progress bar");
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void hideHelloMsg() {
         helloMsgView.setVisibility(View.GONE);
     }
@@ -118,4 +134,6 @@ public class HelloView
     public void setGoToByeBtnLabel(String txt) {
         btnGoToByeView.setText(txt);
     }
+
+
 }

@@ -27,6 +27,7 @@ public interface Bye {
         void onScreenStarted();
         void setToolbarVisibility(boolean visible);
         void setTextVisibility(boolean visible);
+        void setProgressBarVisibility(boolean visible);
     }
 
     interface ByeTo {
@@ -55,6 +56,11 @@ public interface Bye {
     interface PresenterToView extends ContextView {
         void finishScreen();
         void hideToolbar();
+
+        void hideProgressBar();
+
+        void showProgressBar();
+
         void hideByeMsg();
         void showByeMsg();
         void setByeMsg(String txt);

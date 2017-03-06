@@ -27,6 +27,7 @@ public interface Hello {
         void onScreenStarted();
         void setToolbarVisibility(boolean visible);
         void setTextVisibility(boolean visible);
+        void setProgressBarVisibility(boolean visible);
     }
 
     interface HelloTo {
@@ -54,6 +55,11 @@ public interface Hello {
     interface PresenterToView extends ContextView {
         void finishScreen();
         void hideToolbar();
+
+        void hideProgressBar();
+
+        void showProgressBar();
+
         void hideHelloMsg();
         void showHelloMsg();
         void setHelloMsg(String txt);
