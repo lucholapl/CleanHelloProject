@@ -6,10 +6,9 @@ import es.ulpgc.eite.clean.mvp.GenericModel;
 public class HelloModel extends GenericModel<Hello.ModelToPresenter>
         implements Hello.PresenterToModel {
 
-    private String helloText;
-    private String helloLabel;
-    private int numOfTimes;
-    private String msgText;
+    private String helloMsgText;
+    private String sayHelloBtnLabel;
+    private String goToByeBtnLabel;
 
     /**
      * Method that recovers a reference to the PRESENTER
@@ -21,8 +20,9 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
     public void onCreate(Hello.ModelToPresenter presenter) {
         super.onCreate(presenter);
 
-        helloLabel = "Say Hello";
-        helloText = "Hello World!";
+        sayHelloBtnLabel = "Say Hello";
+        helloMsgText = "Hello World!";
+        goToByeBtnLabel = "Go To Bye";
     }
 
     /**
@@ -42,20 +42,24 @@ public class HelloModel extends GenericModel<Hello.ModelToPresenter>
 
     @Override
     public void onChangeMsgByHelloBtnClicked() {
-        msgText = helloText;
-//        if (numOfTimes > 0) {
-//            msgText += ", " + numOfTimes + " times";
-//        }
-//        numOfTimes++;
+
+    }
+
+
+
+    @Override
+    public String getHelloMsg() {
+        return helloMsgText;
     }
 
     @Override
-    public String getHelloText() {
-        return msgText;
+    public String getGoToByeBtnLabel() {
+        return goToByeBtnLabel;
     }
 
     @Override
-    public String getLabel() {
-        return helloLabel;
+    public String getSayHelloBtnLabel() {
+        return sayHelloBtnLabel;
     }
+
 }

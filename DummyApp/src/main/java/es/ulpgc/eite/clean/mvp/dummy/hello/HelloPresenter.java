@@ -10,14 +10,13 @@ import es.ulpgc.eite.clean.mvp.GenericPresenter;
 import es.ulpgc.eite.clean.mvp.dummy.app.Mediator;
 import es.ulpgc.eite.clean.mvp.dummy.app.Navigator;
 
-
 public class HelloPresenter extends GenericPresenter
         <Hello.PresenterToView, Hello.PresenterToModel, Hello.ModelToPresenter, HelloModel>
-        implements Hello.ViewToPresenter, Hello.ModelToPresenter, Hello.HelloTo, Hello.ToHello {
+        implements Hello.ViewToPresenter, Hello.ModelToPresenter,  Hello.ToHello, Hello.HelloToBye {
 
 
     private boolean toolbarVisible;
-    private boolean buttonHelloClicked;
+    private boolean buttonClicked;
     private boolean textVisible;
 
     /**
@@ -34,9 +33,13 @@ public class HelloPresenter extends GenericPresenter
         setView(view);
         Log.d(TAG, "calling onCreate()");
 
+
         Log.d(TAG, "calling startingHelloScreen()");
         Mediator app = (Mediator) getView().getApplication();
         app.startingHelloScreen(this);
+
+
+        //onStartingView();
     }
 
     /**
@@ -51,16 +54,31 @@ public class HelloPresenter extends GenericPresenter
         setView(view);
         Log.d(TAG, "calling onResume()");
 
-        if (configurationChangeOccurred()) {
-            getView().setLabel(getModel().getLabel());
+        if(configurationChangeOccurred()) { // giro pantalla
+            onScreenStarted();
 
-            checkToolbarVisibility();
-            checkTextVisibility();
-
-            if (buttonHelloClicked) {
-                getView().setText(getModel().getHelloText());
+            if(textVisible){
+                //getView().showHelloMsg();
+                //getView().setHelloMsg(getModel().getHelloMsg());
+                checkHelloMsg();
             }
+        } else { // segundo a primer plano
+
         }
+
+    /*
+    if(configurationChangeOccurred()) {
+      getView().setGoToByeBtnLabel(getModel().getSayHelloBtnLabel());
+
+      checkToolbarVisibility();
+      checkTextVisibility();
+
+      if (buttonClicked) {
+        getView().setHelloMsg(getModel().getHelloMsg());
+      }
+    }
+    */
+
     }
 
     /**
@@ -91,27 +109,45 @@ public class HelloPresenter extends GenericPresenter
     // View To Presenter /////////////////////////////////////////////////////////////
 
     @Override
-    public void onButtonHelloClicked() {
-        Log.d(TAG, "calling onButtonHelloClicked()");
-        if (isViewRunning()) {
-            getModel().onChangeMsgByHelloBtnClicked();
-            getView().setText(getModel().getHelloText());
-            textVisible = true;
-            buttonHelloClicked = true;
+    public void onSayHelloBtnClicked() {
+        Log.d(TAG, "calling onSayHelloBtnClicked()");
+
+        if(isViewRunning()) {
+            //getView().showHelloMsg();
+            //getView().setHelloMsg(getModel().getHelloMsg());
+            checkHelloMsg();
+            setTextVisibility(true);
         }
-        checkTextVisibility();
+
+    /*
+    if(isViewRunning()) {
+      getModel().onChangeMsgByBtnClicked();
+      getView().setHelloMsg(getModel().getHelloMsg());
+      textVisible = true;
+      buttonClicked = true;
+    }
+    checkTextVisibility();
+    */
     }
 
     @Override
-    public void onButtonGoToByeClicked() {
-        Log.d(TAG, "calling onButtonGoToByeClicked()");
-
-        if (isViewRunning()) {
-            Navigator app = (Navigator) getView().getApplication();
-            app.goToByeScreen(this);
-        }
-        checkTextVisibility();
+    public void onGoToByeBtnClicked() {
+        Navigator app = (Navigator) getView().getApplication();
+        app.goToByeScreen(this);
     }
+
+  /*
+  @Override
+  public void onStartingView() {
+    if(isViewRunning()) {
+      getView().setGoToByeBtnLabel(getModel().getGoToByeBtnLabel());
+      //String label = getModel().getGoToByeBtnLabel();
+      //getView().setGoToByeBtnLabel(label);
+      getView().setSayHelloBtnLabel(getModel().getSayHelloBtnLabel());
+      getView().hideHelloMsg();
+    }
+  }
+  */
 
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -120,11 +156,28 @@ public class HelloPresenter extends GenericPresenter
     @Override
     public void onScreenStarted() {
         Log.d(TAG, "calling onScreenStarted()");
-        if (isViewRunning()) {
-            getView().setLabel(getModel().getLabel());
+
+        //onStartingView();
+
+        if(isViewRunning()) {
+            getView().setGoToByeBtnLabel(getModel().getGoToByeBtnLabel());
+            //String label = getModel().getGoToByeBtnLabel();
+            //getView().setGoToByeBtnLabel(label);
+            getView().setSayHelloBtnLabel(getModel().getSayHelloBtnLabel());
+            getView().hideHelloMsg();
+
+            if(!toolbarVisible) {
+                getView().hideToolbar();
+            }
         }
-        checkToolbarVisibility();
-        checkTextVisibility();
+
+    /*
+    if(isViewRunning()) {
+      getView().setGoToByeBtnLabel(getModel().getSayHelloBtnLabel());
+    }
+    checkToolbarVisibility();
+    checkTextVisibility();
+    */
     }
 
     @Override
@@ -141,53 +194,56 @@ public class HelloPresenter extends GenericPresenter
     ///////////////////////////////////////////////////////////////////////////////////
     // Hello To //////////////////////////////////////////////////////////////////////
 
-
-    @Override
-    public Context getManagedContext() {
-        return getActivityContext();
-    }
-
-    @Override
-    public void destroyView() {
-        if (isViewRunning()) {
-            getView().finishScreen();
-        }
-    }
-
     @Override
     public boolean isToolbarVisible() {
         return toolbarVisible;
     }
 
     @Override
-    public boolean isTextVisible() {
-        return textVisible;
+    public Context getManagedContext(){
+        return getActivityContext();
     }
 
-    @Override
-    public boolean checkButtonSayClicked() {
-        return this.buttonHelloClicked;
-    }
+  /*
 
+
+  @Override
+  public void destroyView(){
+    if(isViewRunning()) {
+      getView().finishScreen();
+    }
+  }
+
+  @Override
+  public boolean isTextVisible() {
+    return textVisible;
+  }
+  */
 
     ///////////////////////////////////////////////////////////////////////////////////
 
-    private void checkToolbarVisibility() {
+    private void checkHelloMsg(){
+        getView().showHelloMsg();
+        getView().setHelloMsg(getModel().getHelloMsg());
+    }
+
+    private void checkToolbarVisibility(){
         Log.d(TAG, "calling checkToolbarVisibility()");
-        if (isViewRunning()) {
+        if(isViewRunning()) {
             if (!toolbarVisible) {
                 getView().hideToolbar();
             }
         }
+
     }
 
-    private void checkTextVisibility() {
+    private void checkTextVisibility(){
         Log.d(TAG, "calling checkTextVisibility()");
-        if (isViewRunning()) {
-            if (!textVisible) {
-                getView().hideText();
+        if(isViewRunning()) {
+            if(!textVisible) {
+                getView().hideHelloMsg();
             } else {
-                getView().showText();
+                getView().showHelloMsg();
             }
         }
     }

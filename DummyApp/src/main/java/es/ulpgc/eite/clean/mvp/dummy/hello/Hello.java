@@ -16,24 +16,24 @@ public interface Hello {
     ///////////////////////////////////////////////////////////////////////////////////
     // State /////////////////////////////////////////////////////////////////////////
 
+    interface HelloToBye {
+
+        boolean isToolbarVisible();
+
+        Context getManagedContext();
+    }
+
     interface ToHello {
         void onScreenStarted();
-
         void setToolbarVisibility(boolean visible);
-
         void setTextVisibility(boolean visible);
     }
 
     interface HelloTo {
         Context getManagedContext();
-
         void destroyView();
-
         boolean isToolbarVisible();
-
         boolean isTextVisible();
-
-        boolean checkButtonSayClicked();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -43,11 +43,9 @@ public interface Hello {
      * Methods offered to VIEW to communicate with PRESENTER
      */
     interface ViewToPresenter extends Presenter<PresenterToView> {
-
-
-        void onButtonHelloClicked();
-
-        void onButtonGoToByeClicked();
+        void onSayHelloBtnClicked();
+        void onGoToByeBtnClicked();
+        //void onStartingView();
     }
 
     /**
@@ -55,29 +53,27 @@ public interface Hello {
      */
     interface PresenterToView extends ContextView {
         void finishScreen();
-
         void hideToolbar();
+        void hideHelloMsg();
+        void showHelloMsg();
+        void setHelloMsg(String txt);
 
-        void hideText();
+        void setSayHelloBtnLabel(String txt);
 
-        void showText();
-
-        void setText(String txt);
-
-        void setLabel(String txt);
+        void setGoToByeBtnLabel(String txt);
     }
 
     /**
      * Methods offered to MODEL to communicate with PRESENTER
      */
     interface PresenterToModel extends Model<ModelToPresenter> {
-
-
         void onChangeMsgByHelloBtnClicked();
 
-        String getHelloText();
+        String getHelloMsg();
 
-        String getLabel();
+        String getGoToByeBtnLabel();
+
+        String getSayHelloBtnLabel();
     }
 
     /**

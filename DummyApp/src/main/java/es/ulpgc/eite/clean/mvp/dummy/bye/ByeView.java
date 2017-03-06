@@ -8,40 +8,38 @@ import android.widget.TextView;
 
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.dummy.R;
-import es.ulpgc.eite.clean.mvp.dummy.bye.Bye;
-import es.ulpgc.eite.clean.mvp.dummy.bye.ByePresenter;
 
 public class ByeView
         extends GenericActivity<Bye.PresenterToView, Bye.ViewToPresenter, ByePresenter>
         implements Bye.PresenterToView {
 
     private Toolbar toolbar;
-    private Button btnSayBye;
-    private Button btnGoToHello;
-    private TextView text;
+    private Button btnSayByeView;
+    private Button btnGoToHelloView;
+    private TextView byeMsgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bye);
 
-        text = (TextView) findViewById(R.id.byeMsg);
+        byeMsgView = (TextView) findViewById(R.id.byeMsg);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnSayBye = (Button) findViewById(R.id.sayByeBtn);
-        btnSayBye.setOnClickListener(new View.OnClickListener() {
+        btnSayByeView = (Button) findViewById(R.id.sayByeBtn);
+        btnSayByeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPresenter().onButtonByeClicked();
+                getPresenter().onSayByeBtnClicked();
             }
         });
-        btnGoToHello = (Button) findViewById(R.id.goToHelloBtn);
-        btnGoToHello.setOnClickListener(new View.OnClickListener() {
+        btnGoToHelloView = (Button) findViewById(R.id.goToHelloBtn);
+        btnGoToHelloView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPresenter().onButtonGoToHelloClicked();
+                getPresenter().onGoToHelloBtnClicked();
             }
         });
     }
@@ -94,22 +92,27 @@ public class ByeView
     }
 
     @Override
-    public void hideText() {
-        text.setVisibility(View.GONE);
+    public void hideByeMsg() {
+        byeMsgView.setVisibility(View.GONE);
     }
 
     @Override
-    public void showText() {
-        text.setVisibility(View.VISIBLE);
+    public void showByeMsg() {
+        byeMsgView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void setText(String txt) {
-        text.setText(txt);
+    public void setByeMsg(String txt) {
+        byeMsgView.setText(txt);
     }
 
     @Override
-    public void setLabel(String txt) {
-        btnSayBye.setText(txt);
+    public void setSayByeBtnLabel(String txt) {
+        btnSayByeView.setText(txt);
+    }
+
+    @Override
+    public void setGoToHelloBtnLabel(String txt) {
+        btnGoToHelloView.setText(txt);
     }
 }

@@ -8,43 +8,42 @@ import android.widget.TextView;
 
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.dummy.R;
-import es.ulpgc.eite.clean.mvp.dummy.hello.Hello;
-import es.ulpgc.eite.clean.mvp.dummy.hello.HelloPresenter;
 
 public class HelloView
         extends GenericActivity<Hello.PresenterToView, Hello.ViewToPresenter, HelloPresenter>
         implements Hello.PresenterToView {
 
     private Toolbar toolbar;
-    private Button btnSayHello;
-    private Button btnGoToBye;
-    private TextView text;
+    private Button btnSayHelloView, btnGoToByeView;
+    private TextView helloMsgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello);
 
-        text = (TextView) findViewById(R.id.helloMsg);
+        helloMsgView = (TextView) findViewById(R.id.helloMsg);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnSayHello = (Button) findViewById(R.id.sayHelloBtn);
-        btnSayHello.setOnClickListener(new View.OnClickListener() {
+        btnSayHelloView = (Button) findViewById(R.id.sayHelloBtn);
+        btnSayHelloView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPresenter().onButtonHelloClicked();
+                getPresenter().onSayHelloBtnClicked();
             }
         });
 
-        btnGoToBye = (Button) findViewById(R.id.goToByeBtn);
-        btnGoToBye.setOnClickListener(new View.OnClickListener() {
+        btnGoToByeView = (Button) findViewById(R.id.goToByeBtn);
+        btnGoToByeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPresenter().onButtonGoToByeClicked();
+                getPresenter().onGoToByeBtnClicked();
             }
         });
+
+        //getPresenter().onStartingView();
     }
 
     /**
@@ -54,20 +53,22 @@ public class HelloView
     @Override
     protected void onResume() {
         super.onResume(HelloPresenter.class, this);
+
+        //getPresenter().onStartingView();
     }
 
   /*
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_hello, menu);
+    getMenuInflater().inflate(R.menu.menu_dummy, menu);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
+    // automatically handle clicks on the Home/Up btnSayHelloView, so long
     // as you specify a parent activity in AndroidManifest.xml.
     int id = item.getItemId();
 
@@ -95,23 +96,26 @@ public class HelloView
     }
 
     @Override
-    public void hideText() {
-        text.setVisibility(View.GONE);
+    public void hideHelloMsg() {
+        helloMsgView.setVisibility(View.GONE);
     }
 
     @Override
-    public void showText() {
-        text.setVisibility(View.VISIBLE);
+    public void showHelloMsg() {
+        helloMsgView.setVisibility(View.VISIBLE);
+    }
+
+    public void setHelloMsg(String txt) {
+        helloMsgView.setText(txt);
     }
 
     @Override
-    public void setText(String txt) {
-        text.setText(txt);
+    public void setSayHelloBtnLabel(String txt) {
+        btnSayHelloView.setText(txt);
     }
 
     @Override
-    public void setLabel(String txt) {
-        btnSayHello.setText(txt);
-        //btnGoToBye.setText(txt);
+    public void setGoToByeBtnLabel(String txt) {
+        btnGoToByeView.setText(txt);
     }
 }

@@ -6,10 +6,10 @@ import es.ulpgc.eite.clean.mvp.GenericModel;
 public class ByeModel extends GenericModel<Bye.ModelToPresenter>
         implements Bye.PresenterToModel {
 
-    private String byeText;
-    private String byeLabel;
-    private int numOfTimes;
-    private String msgText;
+    private String byeMsgText;
+    private String sayByeBtnLabel;
+    private String goToHelloBtnLabel;
+
 
     /**
      * Method that recovers a reference to the PRESENTER
@@ -21,8 +21,9 @@ public class ByeModel extends GenericModel<Bye.ModelToPresenter>
     public void onCreate(Bye.ModelToPresenter presenter) {
         super.onCreate(presenter);
 
-        byeLabel = "Say bye!";
-        byeText = "Bye World!";
+        sayByeBtnLabel = "Say Bye";
+        byeMsgText = "Bye World!";
+        goToHelloBtnLabel = "Go To Hello";
     }
 
     /**
@@ -41,21 +42,22 @@ public class ByeModel extends GenericModel<Bye.ModelToPresenter>
 
 
     @Override
-    public void onChangeMsgByByeBtnClicked() {
-        msgText = byeText;
-//        if (numOfTimes > 0) {
-//            msgText += ", " + numOfTimes + " times";
-//        }
-//        numOfTimes++;
+    public void onChangeMsgByBtnClicked() {
+
     }
 
     @Override
-    public String getText() {
-        return msgText;
+    public String getByeMsg() {
+        return byeMsgText;
     }
 
     @Override
-    public String getLabel() {
-        return byeLabel;
+    public String getGoToHelloBtnLabel() {
+        return goToHelloBtnLabel;
+    }
+
+    @Override
+    public String getSayByeBtnLabel() {
+        return sayByeBtnLabel;
     }
 }

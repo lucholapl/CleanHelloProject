@@ -12,7 +12,7 @@ import es.ulpgc.eite.clean.mvp.dummy.app.Navigator;
 
 public class ByePresenter extends GenericPresenter
         <Bye.PresenterToView, Bye.PresenterToModel, Bye.ModelToPresenter, ByeModel>
-        implements Bye.ViewToPresenter, Bye.ModelToPresenter, Bye.ByeTo, Bye.ToBye {
+        implements Bye.ViewToPresenter, Bye.ModelToPresenter, Bye.ByeToHello, Bye.ToBye {
 
 
     private boolean toolbarVisible;
@@ -51,16 +51,16 @@ public class ByePresenter extends GenericPresenter
         Log.d(TAG, "calling onResume()");
 
         if (configurationChangeOccurred()) {
-            getView().setLabel(getModel().getLabel());
+            onScreenStarted();
 
-            checkToolbarVisibility();
-            checkTextVisibility();
-
-            if (buttonClicked) {
-                getView().setText(getModel().getText());
-                getView().showText();
+            if(textVisible){
+                //getView().showHelloMsg();
+                //getView().setHelloMsg(getModel().getHelloMsg());
+                checkByeMsg();
             }
-        }
+        }else { // segundo a primer plano
+
+    }
     }
 
     /**
@@ -91,26 +91,21 @@ public class ByePresenter extends GenericPresenter
     // View To Presenter /////////////////////////////////////////////////////////////
 
     @Override
-    public void onButtonByeClicked() {
-        Log.d(TAG, "calling onButtonByeClicked()");
+    public void onSayByeBtnClicked() {
+        Log.d(TAG, "calling onSayByeBtnClicked()");
         if (isViewRunning()) {
-            getModel().onChangeMsgByByeBtnClicked();
-            getView().setText(getModel().getText());
-            textVisible = true;
-            buttonClicked = true;
+            checkByeMsg();
+            setTextVisibility(true);
         }
-        checkTextVisibility();
     }
 
     @Override
-    public void onButtonGoToHelloClicked() {
-        Log.d(TAG, "calling onButtonGoToHelloClicked()");
+    public void onGoToHelloBtnClicked() {
+        Log.d(TAG, "calling onGoToHelloBtnClicked()");
 
-        if (isViewRunning()) {
             Navigator app = (Navigator) getView().getApplication();
             app.goToHelloScreen(this);
-        }
-        checkTextVisibility();
+
     }
 
 
@@ -121,10 +116,16 @@ public class ByePresenter extends GenericPresenter
     public void onScreenStarted() {
         Log.d(TAG, "calling onScreenStarted()");
         if (isViewRunning()) {
-            getView().setLabel(getModel().getLabel());
+            getView().setGoToHelloBtnLabel(getModel().getGoToHelloBtnLabel());
+            //String label = getModel().getGoToByeBtnLabel();
+            //getView().setGoToHelloBtnLabel(label);
+            getView().setSayByeBtnLabel(getModel().getSayByeBtnLabel());
+            getView().hideByeMsg();
+
+            if (!toolbarVisible) {
+                getView().hideToolbar();
+            }
         }
-        checkToolbarVisibility();
-        checkTextVisibility();
     }
 
     @Override
@@ -147,25 +148,29 @@ public class ByePresenter extends GenericPresenter
         return getActivityContext();
     }
 
-    @Override
-    public void destroyView() {
-        if (isViewRunning()) {
-            getView().finishScreen();
-        }
-    }
+//    @Override
+//    public void destroyView() {
+//        if (isViewRunning()) {
+//            getView().finishScreen();
+//        }
+//    }
 
     @Override
     public boolean isToolbarVisible() {
         return toolbarVisible;
     }
 
-    @Override
-    public boolean isTextVisible() {
-        return textVisible;
-    }
+//    @Override
+//    public boolean isTextVisible() {
+//        return textVisible;
+//    }
 
 
     ///////////////////////////////////////////////////////////////////////////////////
+    private void checkByeMsg(){
+        getView().showByeMsg();
+        getView().setByeMsg(getModel().getByeMsg());
+    }
 
     private void checkToolbarVisibility() {
         Log.d(TAG, "calling checkToolbarVisibility()");
@@ -180,17 +185,17 @@ public class ByePresenter extends GenericPresenter
         Log.d(TAG, "calling checkTextVisibility()");
         if (isViewRunning()) {
             if (!textVisible) {
-                getView().hideText();
+                getView().hideByeMsg();
             } else {
-                getView().showText();
+                getView().showByeMsg();
             }
         }
     }
-
-    @Override
-    public boolean wasSayButtonClickedBefore() {
-        Mediator mediador = (Mediator) getApplication();
-        return mediador.checkButtonSayClicked();
-    }
+//
+//    @Override
+//    public boolean wasSayButtonClickedBefore() {
+//        Mediator mediador = (Mediator) getApplication();
+//        return mediador.checkButtonSayClicked();
+//    }
 
 }

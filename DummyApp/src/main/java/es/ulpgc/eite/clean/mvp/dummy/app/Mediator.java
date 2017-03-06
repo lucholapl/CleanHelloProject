@@ -12,6 +12,6 @@ public interface Mediator {
     void startingByeScreen(Bye.ToBye presenter);
 
 
-    boolean checkButtonSayClicked();
+    //boolean checkButtonSayClicked();
 }
 

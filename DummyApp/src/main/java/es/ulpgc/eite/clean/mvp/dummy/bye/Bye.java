@@ -16,23 +16,24 @@ public interface Bye {
     ///////////////////////////////////////////////////////////////////////////////////
     // State /////////////////////////////////////////////////////////////////////////
 
+    interface ByeToHello {
+
+        boolean isToolbarVisible();
+
+        Context getManagedContext();
+    }
+
     interface ToBye {
         void onScreenStarted();
-
         void setToolbarVisibility(boolean visible);
-
         void setTextVisibility(boolean visible);
     }
 
     interface ByeTo {
         Context getManagedContext();
-
         void destroyView();
-
         boolean isToolbarVisible();
-
         boolean isTextVisible();
-
         //boolean checkButtonSayClicked();
     }
 
@@ -43,11 +44,9 @@ public interface Bye {
      * Methods offered to VIEW to communicate with PRESENTER
      */
     interface ViewToPresenter extends Presenter<PresenterToView> {
-        void onButtonByeClicked();
-
-        void onButtonGoToHelloClicked();
-
-        boolean wasSayButtonClickedBefore();
+        void onSayByeBtnClicked();
+        void onGoToHelloBtnClicked();
+       // boolean wasSayButtonClickedBefore();
     }
 
     /**
@@ -55,29 +54,26 @@ public interface Bye {
      */
     interface PresenterToView extends ContextView {
         void finishScreen();
-
         void hideToolbar();
+        void hideByeMsg();
+        void showByeMsg();
+        void setByeMsg(String txt);
 
-        void hideText();
+        void setSayByeBtnLabel(String txt);
 
-        void showText();
-
-        void setText(String txt);
-
-        void setLabel(String txt);
+        void setGoToHelloBtnLabel(String txt);
     }
 
     /**
      * Methods offered to MODEL to communicate with PRESENTER
      */
     interface PresenterToModel extends Model<ModelToPresenter> {
-        void onChangeMsgByByeBtnClicked();
+        void onChangeMsgByBtnClicked();
+        String getByeMsg();
 
+        String getGoToHelloBtnLabel();
 
-
-        String getLabel();
-
-        String getText();
+        String getSayByeBtnLabel();
     }
 
     /**
